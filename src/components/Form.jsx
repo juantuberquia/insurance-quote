@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
+import Error from "./Error";
+import { costYear, costBrand, costPlan } from "../helper";
 
 const TagDiv = styled.div`
   display: flex;
@@ -44,13 +46,61 @@ const Boton = styled.button`
     background-color: #26c6da;
   }
 `;
+
 const Form = () => {
+  // obtengo los datos del form
+  const [dataForm, SetDataForm] = useState({
+    carBrand: "",
+    year: "",
+    plan: "",
+  });
+
+  //validar datos ingresados formulario
+  const [validateForm, setValidateForm] = useState(false);
+
+  // diferencia en años
+  const [diferenceYear, setDiferenceYear] = useState(0);
+
+  // tipo de marca
+  const [typeBrand, setBrand] = useState("");
+
+  // tipo de plan
+  const [typePlan, setTypePlan] = useState("");
+
+  const getData = (e) => {
+    SetDataForm({
+      ...dataForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const { carBrand, year, plan } = dataForm;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (carBrand.trim() === "" || year.trim() === "" || plan.trim() === "") {
+      setValidateForm(true);
+      return;
+    } else {
+      setValidateForm(false);
+    }
+
+    setDiferenceYear(costYear(year));
+    setBrand(costBrand(carBrand));
+    setTypePlan(costPlan(plan));
+    console.log(parseFloat(diferenceYear * typeBrand * typePlan).toFixed(4));
+  };
+
   return (
     <ContentForm>
-      <form>
+      <form onSubmit={handleSubmit}>
+        {validateForm ? (
+          <Error message="Favor diligenciar todos los campos" />
+        ) : null}
         <TagDiv>
           <TextItems> Marca: </TextItems>
-          <Select>
+          <Select name="carBrand" onChange={getData}>
             <option> --seleccionar --</option>
             <option> Americano </option>
             <option> Asiatico </option>
@@ -59,7 +109,7 @@ const Form = () => {
         </TagDiv>
         <TagDiv>
           <TextItems>Año: </TextItems>
-          <Select>
+          <Select name="year" onChange={getData}>
             <option value="">-- Seleccionar --</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
@@ -75,12 +125,22 @@ const Form = () => {
         </TagDiv>
         <TagDiv>
           <TextItems> Plan: </TextItems>
-          <InputRadio type="radio" value="basico" name="plan" />
+          <InputRadio
+            type="radio"
+            value="basico"
+            name="plan"
+            onChange={getData}
+          />
           basico
-          <InputRadio type="radio" value="premiun" name="plan" />
+          <InputRadio
+            type="radio"
+            value="premiun"
+            name="plan"
+            onChange={getData}
+          />
           Premiun
         </TagDiv>
-        <Boton>Cotizar</Boton>
+        <Boton type="submit">Cotizar</Boton>
       </form>
     </ContentForm>
   );
