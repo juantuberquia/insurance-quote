@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Headering from "./components/Headering";
 import styled from "@emotion/styled";
 import Form from "./components/Form";
+import Overview from "./components/Overview";
 
 const MainTag = styled.div`
   width: 600px;
@@ -17,11 +18,19 @@ const FormContainer = styled.div`
 `;
 
 function App() {
+  const [dataOverview, setDataOverview] = useState({
+    quote: "",
+    carBrand: "",
+    year: "",
+    pla: "",
+  });
+
   return (
     <MainTag>
       <Headering titulo="Cotiza tu Seguro" />
       <FormContainer>
-        <Form />
+        <Form setDataOverview={setDataOverview} />
+        <Overview dataOverview={dataOverview} />
       </FormContainer>
     </MainTag>
   );

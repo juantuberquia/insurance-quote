@@ -47,7 +47,7 @@ const Boton = styled.button`
   }
 `;
 
-const Form = () => {
+const Form = ({ setDataOverview }) => {
   // obtengo los datos del form
   const [dataForm, SetDataForm] = useState({
     carBrand: "",
@@ -89,7 +89,17 @@ const Form = () => {
     setDiferenceYear(costYear(year));
     setBrand(costBrand(carBrand));
     setTypePlan(costPlan(plan));
-    console.log(parseFloat(diferenceYear * typeBrand * typePlan).toFixed(4));
+    // result = parseFloat(diferenceYear * typeBrand * typePlan).toFixed(4);
+
+    // pasar datos de la cotizacion y mostrarlas
+    setDataOverview({
+      quote: parseFloat(diferenceYear * typeBrand * typePlan).toFixed(2),
+      carBrand,
+      year,
+      plan,
+    });
+
+    // console.log(parseFloat(diferenceYear * typeBrand * typePlan).toFixed(4));
   };
 
   return (
