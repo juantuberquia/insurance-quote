@@ -3,12 +3,13 @@ import Headering from "./components/Headering";
 import styled from "@emotion/styled";
 import Form from "./components/Form";
 import Overview from "./components/Overview";
+import Spinner from "./components/Spinner";
 
 const MainTag = styled.div`
   width: 600px;
   border-radius: 20px;
   margin: 0 auto;
-  margin-top: 10%;
+  margin-top: 2%;
 `;
 
 const FormContainer = styled.div`
@@ -22,14 +23,17 @@ function App() {
     quote: "",
     carBrand: "",
     year: "",
-    pla: "",
+    plan: "",
   });
+
+  const [spinner, setSpinner] = useState(false);
 
   return (
     <MainTag>
       <Headering titulo="Cotiza tu Seguro" />
       <FormContainer>
-        <Form setDataOverview={setDataOverview} />
+        <Form setDataOverview={setDataOverview} setSpinner={setSpinner} />
+        <Spinner spinner={spinner} />
         <Overview dataOverview={dataOverview} />
       </FormContainer>
     </MainTag>

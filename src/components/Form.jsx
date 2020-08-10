@@ -47,7 +47,7 @@ const Boton = styled.button`
   }
 `;
 
-const Form = ({ setDataOverview }) => {
+const Form = ({ setDataOverview, setSpinner }) => {
   // obtengo los datos del form
   const [dataForm, SetDataForm] = useState({
     carBrand: "",
@@ -81,6 +81,7 @@ const Form = ({ setDataOverview }) => {
 
     if (carBrand.trim() === "" || year.trim() === "" || plan.trim() === "") {
       setValidateForm(true);
+
       return;
     } else {
       setValidateForm(false);
@@ -89,17 +90,19 @@ const Form = ({ setDataOverview }) => {
     setDiferenceYear(costYear(year));
     setBrand(costBrand(carBrand));
     setTypePlan(costPlan(plan));
-    // result = parseFloat(diferenceYear * typeBrand * typePlan).toFixed(4);
 
-    // pasar datos de la cotizacion y mostrarlas
-    setDataOverview({
-      quote: parseFloat(diferenceYear * typeBrand * typePlan).toFixed(2),
-      carBrand,
-      year,
-      plan,
-    });
+    setSpinner(true);
 
-    // console.log(parseFloat(diferenceYear * typeBrand * typePlan).toFixed(4));
+    setTimeout(() => {
+      setSpinner(false);
+      // pasar datos de la cotizacion y mostrarlas
+      setDataOverview({
+        quote: parseFloat(diferenceYear * typeBrand * typePlan).toFixed(2),
+        carBrand,
+        year,
+        plan,
+      });
+    }, 1500);
   };
 
   return (

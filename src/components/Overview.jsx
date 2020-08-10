@@ -1,21 +1,23 @@
 import React, { Fragment } from "react";
 import styled from "@emotion/styled";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { v4 as uuidv4 } from "uuid";
 
 const Overview = (dataOverview) => {
   let { quote, carBrand, year, plan } = dataOverview.dataOverview;
 
   if (quote === "" || carBrand === "" || year === "" || plan === "") {
-    console.log("entra al ciclo");
     return null;
   }
 
   //estilos al componente del resumen de datos
   const ContentOverview = styled.div`
-    padding: 1rem;
     text-align: center;
     background-color: #00838f;
     color: #fff;
-    width: 74%;
+    padding-top: 1%;
+    padding-bottom: 3%;
+    width: 81%;
     margin: 1rem 3rem;
   `;
 
@@ -35,6 +37,7 @@ const Overview = (dataOverview) => {
     font-weight: bold;
     margin: 0;
   `;
+
   return (
     <Fragment>
       <ContentOverview>
@@ -45,10 +48,17 @@ const Overview = (dataOverview) => {
           <li> Plan : {plan} </li>
         </ul>
       </ContentOverview>
-
-      <Resul>
-        <TextResul> Total a Pagar : $ {quote}</TextResul>
-      </Resul>
+      <TransitionGroup className="result">
+        <CSSTransition
+          key={uuidv4()}
+          timeout={{ enter: 900, exit: 900 }}
+          classNames="result"
+        >
+          <Resul>
+            <TextResul>Total a Pagar : $ {quote} </TextResul>
+          </Resul>
+        </CSSTransition>
+      </TransitionGroup>
     </Fragment>
   );
 };
