@@ -11,6 +11,10 @@ const Overview = (dataOverview) => {
   }
 
   //estilos al componente del resumen de datos
+  const ContainerMain = styled.div`
+    width: 100%;
+  `;
+
   const ContentOverview = styled.div`
     text-align: center;
     background-color: #00838f;
@@ -40,23 +44,33 @@ const Overview = (dataOverview) => {
 
   return (
     <Fragment>
-      <ContentOverview>
+      {/* <ContentOverview>
         <h2> Resumen de cotizacion </h2>
         <ul>
           <li> Marca : {carBrand}</li>
           <li> Año: {year} </li>
           <li> Plan : {plan} </li>
         </ul>
-      </ContentOverview>
+      </ContentOverview> */}
       <TransitionGroup className="result">
         <CSSTransition
           key={uuidv4()}
           timeout={{ enter: 900, exit: 900 }}
           classNames="result"
         >
-          <Resul>
-            <TextResul>Total a Pagar : $ {quote} </TextResul>
-          </Resul>
+          <ContainerMain>
+            <ContentOverview>
+              <h2> Resumen de cotizacion </h2>
+              <ul>
+                <li> Marca : {carBrand}</li>
+                <li> Año: {year} </li>
+                <li> Plan : {plan} </li>
+              </ul>
+            </ContentOverview>
+            <Resul>
+              <TextResul>Total a Pagar : $ {quote} </TextResul>
+            </Resul>
+          </ContainerMain>
         </CSSTransition>
       </TransitionGroup>
     </Fragment>

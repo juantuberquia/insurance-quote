@@ -47,7 +47,7 @@ const Boton = styled.button`
   }
 `;
 
-const Form = ({ setDataOverview, setSpinner }) => {
+const Form = ({ setDataOverview, setSpinner, setShowOverview }) => {
   // obtengo los datos del form
   const [dataForm, SetDataForm] = useState({
     carBrand: "",
@@ -62,10 +62,12 @@ const Form = ({ setDataOverview, setSpinner }) => {
   const [diferenceYear, setDiferenceYear] = useState(0);
 
   // tipo de marca
-  const [typeBrand, setBrand] = useState("");
+  const [typeBrand, setBrand] = useState(0);
 
   // tipo de plan
-  const [typePlan, setTypePlan] = useState("");
+  const [typePlan, setTypePlan] = useState(0);
+
+  const [valueInsurance, setValueInsurance] = useState(0);
 
   const getData = (e) => {
     SetDataForm({
@@ -81,7 +83,6 @@ const Form = ({ setDataOverview, setSpinner }) => {
 
     if (carBrand.trim() === "" || year.trim() === "" || plan.trim() === "") {
       setValidateForm(true);
-
       return;
     } else {
       setValidateForm(false);
@@ -90,14 +91,23 @@ const Form = ({ setDataOverview, setSpinner }) => {
     setDiferenceYear(costYear(year));
     setBrand(costBrand(carBrand));
     setTypePlan(costPlan(plan));
-
     setSpinner(true);
+    setShowOverview(false);
+    setValueInsurance(
+      parseFloat(diferenceYear * typeBrand * typePlan).toFixed(2)
+    );
+
+    // console.log(valueInsurance);
+    console.log(diferenceYear);
+    // console.log(typeBrand);
+    // console.log(typePlan);
 
     setTimeout(() => {
       setSpinner(false);
+      setShowOverview(true);
       // pasar datos de la cotizacion y mostrarlas
       setDataOverview({
-        quote: parseFloat(diferenceYear * typeBrand * typePlan).toFixed(2),
+        quote: valueInsurance,
         carBrand,
         year,
         plan,

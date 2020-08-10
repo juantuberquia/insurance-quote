@@ -28,13 +28,29 @@ function App() {
 
   const [spinner, setSpinner] = useState(false);
 
+  const [showOverview, setShowOverview] = useState(false);
+
+  // solucionar el porbelma de valor del seguro en el 1 click
+  // precio segun años
+  const [diferenceYear, setDiferenceYear] = useState(0);
+
+  // precio segun tipo de marca
+  const [typeBrand, setBrand] = useState(0);
+
+  // precio segun plan
+  const [typePlan, setTypePlan] = useState(0);
+
   return (
     <MainTag>
       <Headering titulo="Cotiza tu Seguro" />
       <FormContainer>
-        <Form setDataOverview={setDataOverview} setSpinner={setSpinner} />
+        <Form
+          setDataOverview={setDataOverview}
+          setSpinner={setSpinner}
+          setShowOverview={setShowOverview}
+        />
         <Spinner spinner={spinner} />
-        <Overview dataOverview={dataOverview} />
+        {showOverview ? <Overview dataOverview={dataOverview} /> : null}
       </FormContainer>
     </MainTag>
   );
