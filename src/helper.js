@@ -5,8 +5,6 @@ export const costYear = (year) => {
   years = new Date().getFullYear() - year;
   base -= (years * 3 * base) / 100;
 
-  console.log(base);
-
   return base;
 };
 
@@ -32,13 +30,10 @@ export const costBrand = (brandCar) => {
       break;
   }
 
-  console.log(incremento);
-
   return incremento;
 };
 
 // costo segun el plan
 export const costPlan = (plan) => {
-  console.log(plan);
-  return plan === "basico" ? 1.2 : 1.5;
+  return plan === "Basico" ? 1.2 : 1.5;
 };

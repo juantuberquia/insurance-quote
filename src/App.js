@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import Headering from "./components/Headering";
 import styled from "@emotion/styled";
 import Form from "./components/Form";
 import Overview from "./components/Overview";
 import Spinner from "./components/Spinner";
+import Summary from "./components/Summary";
 
 const MainTag = styled.div`
   width: 600px;
@@ -19,25 +20,17 @@ const FormContainer = styled.div`
 `;
 
 function App() {
-  const [dataOverview, setDataOverview] = useState({
-    quote: "",
+  const [spinner, setSpinner] = useState(false);
+  const [showOverview, setShowOverview] = useState(false);
+  const [getData, setGetData] = useState({
     carBrand: "",
     year: "",
     plan: "",
   });
 
-  const [spinner, setSpinner] = useState(false);
-
-  const [showOverview, setShowOverview] = useState(false);
-
-  // solucionar el porbelma de valor del seguro en el 1 click
-  // precio segun años
+  // valor $$ segun años, plan, marca
   const [diferenceYear, setDiferenceYear] = useState(0);
-
-  // precio segun tipo de marca
   const [typeBrand, setBrand] = useState(0);
-
-  // precio segun plan
   const [typePlan, setTypePlan] = useState(0);
 
   return (
@@ -45,12 +38,24 @@ function App() {
       <Headering titulo="Cotiza tu Seguro" />
       <FormContainer>
         <Form
-          setDataOverview={setDataOverview}
           setSpinner={setSpinner}
           setShowOverview={setShowOverview}
+          setDiferenceYear={setDiferenceYear}
+          setBrand={setBrand}
+          setGetData={setGetData}
+          setTypePlan={setTypePlan}
         />
         <Spinner spinner={spinner} />
-        {showOverview ? <Overview dataOverview={dataOverview} /> : null}
+        {showOverview ? (
+          <Fragment>
+            <Summary getData={getData} />
+            <Overview
+              diferenceYear={diferenceYear}
+              typeBrand={typeBrand}
+              typePlan={typePlan}
+            />
+          </Fragment>
+        ) : null}
       </FormContainer>
     </MainTag>
   );

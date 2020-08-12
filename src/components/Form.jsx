@@ -47,7 +47,14 @@ const Boton = styled.button`
   }
 `;
 
-const Form = ({ setDataOverview, setSpinner, setShowOverview }) => {
+const Form = ({
+  setSpinner,
+  setShowOverview,
+  setDiferenceYear,
+  setBrand,
+  setTypePlan,
+  setGetData,
+}) => {
   // obtengo los datos del form
   const [dataForm, SetDataForm] = useState({
     carBrand: "",
@@ -57,17 +64,6 @@ const Form = ({ setDataOverview, setSpinner, setShowOverview }) => {
 
   //validar datos ingresados formulario
   const [validateForm, setValidateForm] = useState(false);
-
-  // diferencia en años
-  const [diferenceYear, setDiferenceYear] = useState(0);
-
-  // tipo de marca
-  const [typeBrand, setBrand] = useState(0);
-
-  // tipo de plan
-  const [typePlan, setTypePlan] = useState(0);
-
-  const [valueInsurance, setValueInsurance] = useState(0);
 
   const getData = (e) => {
     SetDataForm({
@@ -93,21 +89,11 @@ const Form = ({ setDataOverview, setSpinner, setShowOverview }) => {
     setTypePlan(costPlan(plan));
     setSpinner(true);
     setShowOverview(false);
-    setValueInsurance(
-      parseFloat(diferenceYear * typeBrand * typePlan).toFixed(2)
-    );
-
-    // console.log(valueInsurance);
-    console.log(diferenceYear);
-    // console.log(typeBrand);
-    // console.log(typePlan);
 
     setTimeout(() => {
       setSpinner(false);
       setShowOverview(true);
-      // pasar datos de la cotizacion y mostrarlas
-      setDataOverview({
-        quote: valueInsurance,
+      setGetData({
         carBrand,
         year,
         plan,
@@ -150,14 +136,14 @@ const Form = ({ setDataOverview, setSpinner, setShowOverview }) => {
           <TextItems> Plan: </TextItems>
           <InputRadio
             type="radio"
-            value="basico"
+            value="Basico"
             name="plan"
             onChange={getData}
           />
-          basico
+          Basico
           <InputRadio
             type="radio"
-            value="premiun"
+            value="Premiun"
             name="plan"
             onChange={getData}
           />

@@ -3,28 +3,12 @@ import styled from "@emotion/styled";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { v4 as uuidv4 } from "uuid";
 
-const Overview = (dataOverview) => {
-  let { quote, carBrand, year, plan } = dataOverview.dataOverview;
-
-  if (quote === "" || carBrand === "" || year === "" || plan === "") {
+const Overview = ({ typePlan, typeBrand, diferenceYear }) => {
+  if (typeBrand === "" || diferenceYear === "" || typePlan === "") {
     return null;
   }
 
   //estilos al componente del resumen de datos
-  const ContainerMain = styled.div`
-    width: 100%;
-  `;
-
-  const ContentOverview = styled.div`
-    text-align: center;
-    background-color: #00838f;
-    color: #fff;
-    padding-top: 1%;
-    padding-bottom: 3%;
-    width: 81%;
-    margin: 1rem 3rem;
-  `;
-
   const Resul = styled.div`
     text-align: center;
     padding: 0.5rem;
@@ -44,33 +28,19 @@ const Overview = (dataOverview) => {
 
   return (
     <Fragment>
-      {/* <ContentOverview>
-        <h2> Resumen de cotizacion </h2>
-        <ul>
-          <li> Marca : {carBrand}</li>
-          <li> Año: {year} </li>
-          <li> Plan : {plan} </li>
-        </ul>
-      </ContentOverview> */}
       <TransitionGroup className="result">
         <CSSTransition
           key={uuidv4()}
           timeout={{ enter: 900, exit: 900 }}
           classNames="result"
         >
-          <ContainerMain>
-            <ContentOverview>
-              <h2> Resumen de cotizacion </h2>
-              <ul>
-                <li> Marca : {carBrand}</li>
-                <li> Año: {year} </li>
-                <li> Plan : {plan} </li>
-              </ul>
-            </ContentOverview>
-            <Resul>
-              <TextResul>Total a Pagar : $ {quote} </TextResul>
-            </Resul>
-          </ContainerMain>
+          <Resul>
+            <TextResul>
+              Total a Pagar : ${" "}
+              {(typeBrand * diferenceYear * typePlan).toFixed(2)}
+            </TextResul>
+          </Resul>
+          {/* </ContainerMain> */}
         </CSSTransition>
       </TransitionGroup>
     </Fragment>
