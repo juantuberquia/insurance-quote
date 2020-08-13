@@ -1,5 +1,6 @@
 import React from "react";
 import "./Spinner.css";
+import PropTypes from "prop-types";
 
 const Spinner = ({ spinner }) => {
   if (!spinner) {
@@ -15,6 +16,10 @@ const Spinner = ({ spinner }) => {
       <div className="rect5"></div>
     </div>
   );
+};
+
+Spinner.propTypes = {
+  spinner: PropTypes.bool.isRequired,
 };
 
 export default Spinner;

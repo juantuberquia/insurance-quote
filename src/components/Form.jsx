@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Error from "./Error";
 import { costYear, costBrand, costPlan } from "../helper";
+import PropTypes from "prop-types";
 
 const TagDiv = styled.div`
   display: flex;
@@ -155,4 +156,12 @@ const Form = ({
   );
 };
 
+Form.propTypes = {
+  setSpinner: PropTypes.func.isRequired,
+  setShowOverview: PropTypes.func.isRequired,
+  setDiferenceYear: PropTypes.func.isRequired,
+  setBrand: PropTypes.func.isRequired,
+  setTypePlan: PropTypes.func.isRequired,
+  setGetData: PropTypes.func.isRequired,
+};
 export default Form;

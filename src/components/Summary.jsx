@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 
 const Summary = ({ getData }) => {
   const { carBrand, year, plan } = getData;
@@ -28,6 +29,10 @@ const Summary = ({ getData }) => {
       </ul>
     </ContentOverview>
   );
+};
+
+Summary.propTypes = {
+  getData: PropTypes.bool.isRequired,
 };
 
 export default Summary;

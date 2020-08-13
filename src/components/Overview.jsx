@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import styled from "@emotion/styled";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { v4 as uuidv4 } from "uuid";
+import PropTypes from "prop-types";
 
 const Overview = ({ typePlan, typeBrand, diferenceYear }) => {
   if (typeBrand === "" || diferenceYear === "" || typePlan === "") {
@@ -36,15 +37,20 @@ const Overview = ({ typePlan, typeBrand, diferenceYear }) => {
         >
           <Resul>
             <TextResul>
-              Total a Pagar : ${" "}
+              Total a Pagar : $
               {(typeBrand * diferenceYear * typePlan).toFixed(2)}
             </TextResul>
           </Resul>
-          {/* </ContainerMain> */}
         </CSSTransition>
       </TransitionGroup>
     </Fragment>
   );
+};
+
+Overview.propTypes = {
+  typePlan: PropTypes.number.isRequired,
+  typeBrand: PropTypes.number.isRequired,
+  diferenceYear: PropTypes.number.isRequired,
 };
 
 export default Overview;
