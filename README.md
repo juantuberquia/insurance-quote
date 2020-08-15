@@ -1,4 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# insurance quote
+
+## ✍🏻 Description
+This app was built in React.js, the goal, is quote vehicle insurance
+
+You can see the result here → [insurance quote]  https://insuranceyourcar.netlify.app/
+
+## Technologies
+1. HTML
+2. spinner CSS
+3. React.js -> hooks
+4. react-transition-group
+5. styled components
+
+
+his project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
